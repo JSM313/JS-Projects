@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+      integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>PDF Viewer</title>
+  </head>
+  <body>
+    <div class="topBar">
+      <button class="btn" id="prevPage">
+        <i class="fas fa-arrow-circle-left"></i>Prev Page
+      </button>
+      <button class="btn" id="nextPage">
+        <i class="fas fa-arrow-circle-right"></i>Next Page
+      </button>
+      <span class="pageInfo"></span>
+      <span class="pageInfo">
+        Page <span id="pageNum"></span> of <span id="pageCount"> </span>
+      </span>
+    </div>
+
+    <canvas id="pdfRender"></canvas>
+
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
