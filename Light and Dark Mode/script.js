@@ -6,8 +6,6 @@ const image2 = document.getElementById("image2");
 const image3 = document.getElementById("image3");
 const textBox = document.getElementById("text-box");
 
-const settingValues = (key, value) => {};
-
 // Dark or Light Images
 const imageMode = (color) => {
   image1.src = `img/undraw_proud_coder_${color}.svg`;
@@ -15,43 +13,48 @@ const imageMode = (color) => {
   image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 };
 
-// Creating the dark mode function
-const darkMode = () => {
-  // CHANGING THE BACKGROUND COLOR OF THE NAVBAR AND THE TEXT PARAGRAPH IN THE BUTTONS SECTION.
-  nav.style.backgroundColor = "rgb(0 0 0 / 50%)";
-  textBox.style.backgroundColor = "rgb(255 255 255 / 50%)";
+const ToggleLightDarkMode = (isDark) => {
+  nav.style.backgroundColor = isDark
+    ? "rgb(0 0 0 / 50%)"
+    : "rgb(255 255 255 / 50%)";
 
-  // CHANGING THE ICON AND TEXT MODE FROM LIGHT MODE TO DARK MODE.
-  toggleIcon.children[0].textContent = "Dark Mode";
-  toggleIcon.children[1].classList.replace("fa-sun", "fa-moon");
+  textBox.style.backgroundColor = isDark
+    ? "rgb(255 255 255 / 50%)"
+    : "rgb(0 0 0 / 50%)";
 
-  // CHANGING THE IMAGE CONTENT
-  imageMode("dark");
-};
+  toggleIcon.children[0].textContent = isDark ? "Dark Mode" : "Light Mode";
 
-const lightMode = () => {
-  // CHANGING THE BACKGROUND COLOR OF THE NAVBAR AND THE TEXT PARAGRAPH IN THE BUTTONS SECTION.
-  nav.style.backgroundColor = "rgb(255 255 255 / 50%)";
-  textBox.style.backgroundColor = "rgb(0 0 0 / 50%)";
+  isDark
+    ? toggleIcon.children[1].classList.replace("fa-sun", "fa-moon")
+    : toggleIcon.children[1].classList.replace("fa-moon", "fa-sun");
 
-  // CHANGING THE ICON AND TEXT MODE FROM DARK MODE TO LIGHT MODE.
-  toggleIcon.children[0].textContent = "Light Mode";
-  toggleIcon.children[1].classList.replace("fa-moon", "fa-sun");
-
-  // CHANGING THE IMAGE CONTENT
-  imageMode("light");
+  isDark ? imageMode("dark") : imageMode("light");
 };
 
 // Switch theme dynamically
 const switchTheme = (event) => {
   if (event.target.checked) {
     document.documentElement.setAttribute("data-theme", "dark");
-    darkMode();
+    localStorage.setItem("theme", "dark");
+    ToggleLightDarkMode(true);
   } else {
     document.documentElement.setAttribute("data-theme", "light");
-    lightMode();
+    localStorage.setItem("theme", "light");
+    ToggleLightDarkMode(false);
   }
 };
 
 // We will use the onchange event instead of a click event
 toggleSwitch.addEventListener("change", switchTheme);
+
+// Check Local Storage for theme
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme) {
+  document.documentElement.setAttribute("data-theme", currentTheme);
+
+  if (currentTheme === "dark") {
+    toggleSwitch.checked = true;
+    ToggleLightDarkMode(true);
+  }
+}
