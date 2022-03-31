@@ -6,7 +6,7 @@ const artist = document.querySelector("#artist");
 
 const music = document.querySelector("audio");
 
-const progressContainer = document.getElementById("progress-container");
+const progressContainer = document.querySelector(".progress-container");
 
 const currentTimeEl = document.getElementById("current-time");
 
@@ -100,10 +100,6 @@ nextSong = () => {
 // On load select first song
 loadSong(songs[songIndex]);
 
-// Event listener for previous and next buttons.
-previousButton.addEventListener("click", prevSong);
-nextButton.addEventListener("click", nextSong);
-
 // Update progress bar and time...
 
 const updateProgressBar = (event) => {
@@ -144,4 +140,19 @@ const updateProgressBar = (event) => {
   }
 };
 
+const setProgressBar = (event) => {
+  const width = event.srcElement.clientWidth;
+
+  const clickX = event.offsetX;
+
+  const { duration } = music;
+
+  music.currentTime = (clickX / width) * duration; //gives the actual time at that point of the song...
+};
+
+// Event listener for previous and next buttons.
+previousButton.addEventListener("click", prevSong);
+nextButton.addEventListener("click", nextSong);
+music.addEventListener("ended", nextSong);
 music.addEventListener("timeupdate", updateProgressBar);
+progressContainer.addEventListener("click", setProgressBar);
