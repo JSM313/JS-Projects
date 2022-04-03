@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Changer</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        transition: background 0.3s ease;
+      }
+
+      .changeButton {
+        cursor: pointer;
+        background-color: #000;
+        border: 0;
+        font-family: inherit;
+        color: #fff;
+        font-size: 18px;
+        padding: 20px 50px;
+      }
+
+      .changeButton:active {
+        transform: scale(0.98);
+      }
+
+      .changeButton:focus {
+        background-color: #222;
+        outline: none;
+      }
+
+      .color-text {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="change" class="changeButton">Change Background</button>
+
+    <p id="color" class="color-text">rgb(255, 255, 255)</p>
+
+    <script src="app.js"></script>
+  </body>
+</html>
