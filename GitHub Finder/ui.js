@@ -1,4 +1,4 @@
-// Implementing the code from the code from github.js and posting it to UI.js so that it can be displayed in the UI Interface.
+// Implementing the code from github.js and posting it to UI.js so that it can be displayed in the UI Interface.
 
 class UI {
   constructor() {
