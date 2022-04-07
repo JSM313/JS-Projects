@@ -6,7 +6,7 @@ class GitHub {
     // To limit the repo count to 5
     this.repos_count = 5;
 
-    // To sort by lates
+    // To sort by latest repos
     this.repos_sort = "created: asc";
   }
 
