@@ -47,6 +47,51 @@ const validate = (nameValue, urlValue) => {
   return true;
 };
 
+// Build bookmarks in DOM...
+const buildBookmarks = () => {
+  bookmarks.forEach((bookmark) => {
+    const { name, url } = bookmark;
+
+    // Item...
+    const item = document.createElement("div");
+
+    item.classList.add("item");
+
+    // Close icon...
+
+    const closeIcon = document.createElement("i");
+
+    closeIcon.classList.add("fas", "fa-times");
+    closeIcon.setAttribute("title", "Delete Bookmark");
+    closeIcon.setAttribute("onclick", `deleteBookmark('${url})`);
+
+    // Favicon / link container...
+
+    const linkInfo = document.createElement("div");
+    linkInfo.classList.add("name");
+
+    // Favicon...
+    const favicon = document.createElement("img");
+    favicon.setAttribute(
+      "src",
+      `https://s2.googleusercontent.com/s2/favicons?domain=${url}`
+    );
+
+    favicon.setAttribute("alt", "Favicon");
+
+    // Link...
+    const link = document.createElement("a");
+    link.setAttribute("href", `${url}`);
+    link.setAttribute("target", "_blank");
+    link.textContent = name;
+
+    // Append to bookmarks container...
+    linkInfo.append(favicon, link);
+    item.append(closeIcon, linkInfo);
+    bookmarksContainer.appendChild(item);
+  });
+};
+
 // Fetch bookmarks from local storage...
 
 const fetchBookmarks = () => {
@@ -62,7 +107,7 @@ const fetchBookmarks = () => {
 
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
   }
-  console.log(bookmarks);
+  buildBookmarks();
 };
 
 // Handle data from form...
