@@ -6,6 +6,8 @@ const websiteNameEl = document.getElementById("website-name");
 const websiteUrlEl = document.getElementById("website-url");
 const bookmarksContainer = document.getElementById("bookmarks-container");
 
+let bookmarks = [];
+
 // Function to dynamically add show modal class...
 
 const showModal = () => {
@@ -45,6 +47,24 @@ const validate = (nameValue, urlValue) => {
   return true;
 };
 
+// Fetch bookmarks from local storage...
+
+const fetchBookmarks = () => {
+  if (localStorage.getItem("bookmarks")) {
+    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+  } else {
+    bookmarks = [
+      {
+        name: "Google",
+        url: "https://google.com",
+      },
+    ];
+
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }
+  console.log(bookmarks);
+};
+
 // Handle data from form...
 const storeBookmark = (e) => {
   e.preventDefault();
@@ -55,10 +75,23 @@ const storeBookmark = (e) => {
     urlValue = `https://${urlValue}.com`;
   }
 
-  console.log(nameValue, urlValue);
   if (!validate(nameValue, urlValue)) {
     return false;
   }
+
+  const bookmark = {
+    name: nameValue,
+    url: urlValue,
+  };
+
+  bookmarks.push(bookmark);
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  fetchBookmarks();
+  bookmarkForm.reset();
+  websiteNameEl.focus();
 };
 
 bookmarkForm.addEventListener("submit", storeBookmark);
+
+// on load fetchbookmarks...
+fetchBookmarks();
